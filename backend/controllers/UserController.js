@@ -1,15 +1,22 @@
 const User = require('../models/User')
 
-const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
-//helpers
-const createUserToken = require('../helpers/create-user-token')
+
+// helpers
+
 const getToken = require('../helpers/get-token')
+const createUserToken = require('../helpers/create-user-token')
+
 
 module.exports = class UserController {
   static async register(req, res) {
-    const { name, email, phone, password, confirmpassword } = req.body
+    const name = req.body.name
+    const email = req.body.email
+    const phone = req.body.phone
+    const password = req.body.password
+    const confirmpassword = req.body.confirmpassword
 
     // validations
     if (!name) {
@@ -69,14 +76,13 @@ module.exports = class UserController {
 
       await createUserToken(newUser, req, res)
     } catch (error) {
-      res.status(500).json({ message: error })
+      res.status(500).json({ message: 'error' })
     }
-    
   }
 
   static async login(req, res) {
-
-    const {email,password} = req.body
+    const email = req.body.email
+    const password = req.body.password
 
     if (!email) {
       res.status(422).json({ message: 'O e-mail é obrigatório!' })
@@ -92,39 +98,31 @@ module.exports = class UserController {
     const user = await User.findOne({ email: email })
 
     if (!user) {
-      res.status(422).json({ message: 'Não há usuário cadastrado com esse e-mail!' })
-      return
+      return res
+        .status(422)
+        .json({ message: 'Não há usuário cadastrado com este e-mail!' })
     }
 
-    //check if password if password match with db password
+    // check if password match
     const checkPassword = await bcrypt.compare(password, user.password)
 
-    if(!checkPassword) {
-      res.status(422).json({ message: 'Senha inválida' })
-      return
+    if (!checkPassword) {
+      return res.status(422).json({ message: 'Senha inválida' })
     }
 
     await createUserToken(user, req, res)
-
   }
 
   static async checkUser(req, res) {
     let currentUser
 
-    console.log("CHEGOU AQUI NO AUTH", req.headers.authorization)
-    
-  
-    if(req.headers.authorization) {
-
+    if (req.headers.authorization) {
       const token = getToken(req)
-      console.log("CHEGOU AQUI", token)
       const decoded = jwt.verify(token, 'nossosecret')
-      
-      console.log("CHEGOU AQUI 2", token)
+
       currentUser = await User.findById(decoded.id)
 
       currentUser.password = undefined
-
     } else {
       currentUser = null
     }
