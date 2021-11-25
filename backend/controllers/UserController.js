@@ -1,8 +1,11 @@
 const User = require('../models/User')
 
-const bcrypt = require('bcrypt')
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
 
+//helpers
 const createUserToken = require('../helpers/create-user-token')
+const getToken = require('../helpers/get-token')
 
 module.exports = class UserController {
   static async register(req, res) {
@@ -70,4 +73,63 @@ module.exports = class UserController {
     }
     
   }
+
+  static async login(req, res) {
+
+    const {email,password} = req.body
+
+    if (!email) {
+      res.status(422).json({ message: 'O e-mail é obrigatório!' })
+      return
+    }
+
+    if (!password) {
+      res.status(422).json({ message: 'A senha é obrigatória!' })
+      return
+    }
+
+    // check if user exists
+    const user = await User.findOne({ email: email })
+
+    if (!user) {
+      res.status(422).json({ message: 'Não há usuário cadastrado com esse e-mail!' })
+      return
+    }
+
+    //check if password if password match with db password
+    const checkPassword = await bcrypt.compare(password, user.password)
+
+    if(!checkPassword) {
+      res.status(422).json({ message: 'Senha inválida' })
+      return
+    }
+
+    await createUserToken(user, req, res)
+
+  }
+
+  static async checkUser(req, res) {
+    let currentUser
+
+    console.log("CHEGOU AQUI NO AUTH", req.headers.authorization)
+    
+  
+    if(req.headers.authorization) {
+
+      const token = getToken(req)
+      console.log("CHEGOU AQUI", token)
+      const decoded = jwt.verify(token, 'nossosecret')
+      
+      console.log("CHEGOU AQUI 2", token)
+      currentUser = await User.findById(decoded.id)
+
+      currentUser.password = undefined
+
+    } else {
+      currentUser = null
+    }
+
+    res.status(200).send(currentUser)
+  }
+
 }
