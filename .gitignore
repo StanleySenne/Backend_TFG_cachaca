@@ -12,6 +12,9 @@
 
 npm-debug.log*
 
+#asdf
+.tool-versions
+
 # local .env* files
 **/.env
 **/.env.local
