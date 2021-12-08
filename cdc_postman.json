@@ -1,0 +1,457 @@
+{
+	"info": {
+		"_postman_id": "f7ab323b-3d40-41ea-a689-23ac8e466dbb",
+		"name": "GetACachaca",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "/users/register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"douglas\",\r\n    \"email\" : \"douglas@hotmail.com\",\r\n    \"phone\" : \"539995909432\",\r\n    \"password\" : \"12345\",\r\n    \"confirmpassword\" : \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}users/register",
+							"host": [
+								"{{URL}}users"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"douglas\",\r\n    \"email\": \"douglas@hotmail.com\",\r\n    \"phone\": \"539995909432\",\r\n    \"password\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}users/login",
+							"host": [
+								"{{URL}}users"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/checkuser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}users/checkuser",
+							"host": [
+								"{{URL}}users"
+							],
+							"path": [
+								"checkuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}users/619ff37dc208aa1be027f627",
+							"host": [
+								"{{URL}}users"
+							],
+							"path": [
+								"619ff37dc208aa1be027f627"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/edit/:id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "stan24@hotmail.com",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Stanley6",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "53999590943",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Stan/Desktop/teste_cachaca.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}users/edit/619ff37dc208aa1be027f627",
+							"host": [
+								"{{URL}}users"
+							],
+							"path": [
+								"edit",
+								"619ff37dc208aa1be027f627"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Marcas",
+			"item": [
+				{
+					"name": "/marcas/create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nome",
+									"value": "Corotinho",
+									"type": "text"
+								},
+								{
+									"key": "marca_produto",
+									"value": "corotinho",
+									"type": "text"
+								},
+								{
+									"key": "categoria",
+									"value": "drink alcoolico",
+									"type": "text"
+								},
+								{
+									"key": "descricao",
+									"value": "vodka com teor alcoolico de 20%",
+									"type": "text"
+								},
+								{
+									"key": "fabricante",
+									"value": "ambev ltda",
+									"type": "text"
+								},
+								{
+									"key": "caracteristica",
+									"value": "vodka boa",
+									"type": "text"
+								},
+								{
+									"key": "preco",
+									"value": "R$15,90",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/Stan/Desktop/teste_cachaca.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}marcas/create",
+							"host": [
+								"{{URL}}marcas"
+							],
+							"path": [
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/marcas/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}marcas/",
+							"host": [
+								"{{URL}}marcas"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/marcas/meusProdutos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}marcas/meusProdutos",
+							"host": [
+								"{{URL}}marcas"
+							],
+							"path": [
+								"meusProdutos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/marcas/listaCompras",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}marcas/listaCompras",
+							"host": [
+								"{{URL}}marcas"
+							],
+							"path": [
+								"listaCompras"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/marcas/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}marcas/61ae9f1948036ce22fd74517",
+							"host": [
+								"{{URL}}marcas"
+							],
+							"path": [
+								"61ae9f1948036ce22fd74517"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/marcas/:id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}marcas/61a95945eaa0f111f13e7edf",
+							"host": [
+								"{{URL}}marcas"
+							],
+							"path": [
+								"61a95945eaa0f111f13e7edf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/marcas/:id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nome",
+									"value": "teste update",
+									"type": "text"
+								},
+								{
+									"key": "marca_produto",
+									"value": "teste update",
+									"type": "text"
+								},
+								{
+									"key": "categoria",
+									"value": "teste update",
+									"type": "text"
+								},
+								{
+									"key": "descricao",
+									"value": "teste update",
+									"type": "text"
+								},
+								{
+									"key": "fabricante",
+									"value": "teste update",
+									"type": "text"
+								},
+								{
+									"key": "caracteristica",
+									"value": "teste update",
+									"type": "text"
+								},
+								{
+									"key": "preco",
+									"value": "teste update",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/Stan/Desktop/teste_cachaca.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}marcas/61ae9f1948036ce22fd74517",
+							"host": [
+								"{{URL}}marcas"
+							],
+							"path": [
+								"61ae9f1948036ce22fd74517"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:5000/"
+		},
+		{
+			"key": "TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZG91Z2xhcyIsImlkIjoiNjFhODhhNmU0MTkzMzg5NzFmMzI5NjI3IiwiaWF0IjoxNjM4NDg3NTQzfQ.Ze5xKIw0eATzBy1fyMfE6eUykZuVrCa5DXoyTdfLqoc"
+		}
+	]
+}
