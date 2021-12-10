@@ -19,9 +19,12 @@ const User = mongoose.model(
     image: {
       type: String,
     },
-    phone: {
+    cpf: {
       type: String,
     },
+    date: {
+      type: String,
+    }
   }, {timestamps: true}),
 )
 

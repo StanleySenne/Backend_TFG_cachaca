@@ -16,7 +16,8 @@ module.exports = class UserController {
   static async register(req, res) {
     const name = req.body.name;
     const email = req.body.email;
-    const phone = req.body.phone;
+    const cpf = req.body.cpf;
+    const date = req.body.date;
     const password = req.body.password;
     const confirmpassword = req.body.confirmpassword;
 
@@ -31,8 +32,13 @@ module.exports = class UserController {
       return;
     }
 
-    if (!phone) {
-      res.status(422).json({ message: "O telefone é obrigatório!" });
+    if (!cpf) {
+      res.status(422).json({ message: "O CPF é obrigatório!" });
+      return;
+    }
+
+    if (!date) {
+      res.status(422).json({ message: "A data de nascimento é obrigatório!" });
       return;
     }
 
@@ -71,7 +77,8 @@ module.exports = class UserController {
     const user = new User({
       name: name,
       email: email,
-      phone: phone,
+      cpf: cpf,
+      date: date,
       password: passwordHash,
     });
 
@@ -156,7 +163,7 @@ module.exports = class UserController {
     const token = getToken(req);
     const user = await getUserByToken(token);
 
-    const { name, email, phone, password, confirmpassword } = req.body;
+    const { name, email, cpf, date, password, confirmpassword } = req.body;
 
     if (req.file) {
       user.image = req.file.filename;
@@ -186,12 +193,19 @@ module.exports = class UserController {
 
     user.email = email;
 
-    if (!phone) {
-      res.status(422).json({ message: "O telefone é obrigatório!" });
+    if (!cpf) {
+      res.status(422).json({ message: "O CPF é obrigatório!" });
       return;
     }
 
-    user.phone = phone;
+    user.cpf = cpf;
+
+    if (!date) {
+      res.status(422).json({ message: "A data de nascimento é obrigatório!" });
+      return;
+    }
+
+    user.date = date;
 
     if (password != confirmpassword) {
       res.status(422).json({
