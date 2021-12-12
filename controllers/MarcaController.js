@@ -1,4 +1,5 @@
 const Marca = require("../models/Marca");
+const path = require("path");
 
 //helpers
 const getToken = require("../helpers/get-token");
@@ -191,6 +192,12 @@ module.exports = class MarcaController {
     await Marca.findByIdAndRemove(id);
 
     res.status(200).json({ message: "cachaça removido com sucesso!" });
+  }
+
+  static async getImage(req, res) {
+    const { id } = req.params;
+
+    res.sendFile(path.resolve(`public/images/marcas/${id}`));
   }
 
   static async updateMarca(req, res) {

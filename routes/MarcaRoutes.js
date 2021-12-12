@@ -23,5 +23,6 @@ router.patch(
   imageUpload.array("images"),
   MarcaController.updateMarca,
 );
+router.get("/image/:id", MarcaController.getImage);
 
 module.exports = router;
